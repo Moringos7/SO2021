@@ -89,3 +89,19 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+// Llamada a sistema apagar
+int sys_shutdown(void){
+	outw(0x604, 0x2000);
+	return 0;
+}
+
+//Llamada a sistema reiniciar
+
+int sys_reeboot(void){
+	uint good = 0x02;
+    while (good & 0x02)
+        good = inb(0x64);
+    outb(0x64, 0xFE);
+	return 0;	
+}
