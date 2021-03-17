@@ -20,13 +20,17 @@ main(void)
   dup(0);  // stderr
 
   for(;;){
-    printf(1, "init: starting sh\n");
+    printf(1, "Bienvenido Humano\n");
     pid = fork();
     if(pid < 0){
       printf(1, "init: fork failed\n");
       exit();
     }
     if(pid == 0){
+	  // Al cambiar a ls se quedó en bucle infinito Listando Archivos
+	  //exec("ls", argv);
+	  // Al cambiar a 'no apagar' se quedó en bucle infinito mostrando el mensaje Bienvenido Humano
+      //exec("no apagar", argv);
       exec("sh", argv);
       printf(1, "init: exec sh failed\n");
       exit();
