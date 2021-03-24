@@ -1,6 +1,5 @@
 #include <stdio.h>
 //Compila con: gcc <file.c> -o <file exe>
-
 int main(int numarg, char **argv){
 	//El uno es por las palabras en el comando
 	printf("Hola: ");
