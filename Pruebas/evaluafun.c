@@ -9,11 +9,10 @@ int finish = 0;
 
 void signalHandler(int sig){
   if(sig == 2){
-	finish = 1;
-    printf("\nAdios \n",wait(NULL));
+    finish = 1;
+    wait(NULL);
   }
 }
-
 
 int main()
 {
@@ -46,11 +45,14 @@ int main()
             
             close(pp2c[0]);
             close(pc2p[1]);
-            
-            
-            while(!finish){    
-                FILE *out = fdopen(pp2c[1], "w");
-                FILE *in = fdopen(pc2p[0], "r");
+            FILE *out = NULL;
+            FILE *in = NULL;
+            while(1){    
+                if(finish){
+                    break;
+                }
+                out = fdopen(pp2c[1], "w");
+                in = fdopen(pc2p[0], "r");
                 int i = 0;
                 char ecu[1024];
                 char params[1024];
@@ -62,12 +64,18 @@ int main()
                         printf("Ingresa Ecuación: \n");
                         scanf("%[^\n]%*c", ecu);   
                     }else{
+                        if(finish){
+                            break;   
+                        }
                         printf("Ingresa Valores [init final points]: \n");
                         scanf( "%f %f %f", &init, &final, &points);
                     }
                     i++;
                 }
-                
+
+                if(finish){
+                    break;
+                }
                 float diff = final - init;
                 float increment = diff / points;
 
@@ -96,6 +104,11 @@ int main()
                 while((fgetc(stdin)) != '\n');
                 fflush(stdout);
             }
+            
+            fclose(out);
+            fclose(in);
+            wait(NULL);
+
         break;
     }
     return 0;
