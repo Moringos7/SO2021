@@ -4,13 +4,13 @@
 #include <sys/wait.h>
 #include <ctype.h>
 #include <string.h>
+#include <stdlib.h>
 
-int finish = 0;
 
 void signalHandler(int sig){
   if(sig == 2){
-    finish = 1;
-    wait(NULL);
+    printf("\n");
+    exit(0);
   }
 }
 
@@ -48,9 +48,6 @@ int main()
             FILE *out = NULL;
             FILE *in = NULL;
             while(1){    
-                if(finish){
-                    break;
-                }
                 out = fdopen(pp2c[1], "w");
                 in = fdopen(pc2p[0], "r");
                 int i = 0;
@@ -64,18 +61,12 @@ int main()
                         printf("Ingresa Ecuación: \n");
                         scanf("%[^\n]%*c", ecu);   
                     }else{
-                        if(finish){
-                            break;   
-                        }
                         printf("Ingresa Valores [init final points]: \n");
                         scanf( "%f %f %f", &init, &final, &points);
                     }
                     i++;
                 }
 
-                if(finish){
-                    break;
-                }
                 float diff = final - init;
                 float increment = diff / points;
 
