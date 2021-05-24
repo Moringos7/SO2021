@@ -43,7 +43,6 @@ int main(int numarg, char **argv){
     		printf("El primer archivo no existe :(\n");
             return -1;
         }
-        
 	}else{
 		printf("Error: Ingrese argumentos validos\n");
 	}
