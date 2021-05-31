@@ -17,6 +17,7 @@ int main(int argc, char**argv){
             printf("Apellido: %s\n",newStudent.lastName);
             printf("ID: %d\n",newStudent.id);
             printf("Semestre: %d \n",newStudent.semestre);
+            printf("------------------------------------ \n");
         }            
 
         if(cont != records){
